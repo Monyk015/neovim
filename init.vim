@@ -15,23 +15,24 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'kassio/neoterm'
-" Plug 'quramy/tsuquyomi'
-Plug 'leafgarland/typescript-vim'
-" Plug 'mhartington/nvim-typescript'
+Plug 'mhartington/nvim-typescript'
 Plug 'neomake/neomake'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'shougo/echodoc'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
 Plug 'sirver/ultisnips'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 let g:deoplete#enable_at_startup=1
 let g:nvim_typescript#type_info_on_hold=1
+set updatetime=100
 set shortmess+=c
 set completeopt-=preview
 set completeopt+=noinsert
+
+nnoremap <M-CR> :TSImport<CR>
+nnoremap <C-b> :TSDef<CR>
+nnoremap <C-S-b> :TSTypeDef<CR>
 
 
 inoremap <expr> <tab> pumvisible() ? deoplete#close_popup() : "\<tab>"
@@ -44,14 +45,12 @@ endfunction
 let g:UltiSnipsExpandTrigger="nil"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" let g:snipMate = get(g:, 'snipMate', {}) " Allow for vimrc re-sourcing
-" let g:snipMate.scope_aliases = {}
-" let g:snipMate.scope_aliases['typescript'] = 'typescript'
 
 let g:echodoc_enable_at_startup = 1
 
 set clipboard+=unnamedplus
 set noshowmode
+set cmdheight=2
 set nocompatible
 set hidden
 set background = "dark"
@@ -84,15 +83,7 @@ nnoremap <Leader>b :History<CR>
 nnoremap <Leader>s :Snippets<CR>
 nnoremap <Leader><Leader> :Commands<CR>
 
-" function! s:fzf_statusline()
-"   " Override statusline as you like
-"   highlight fzf1 ctermfg=161 ctermbg=251
-"   highlight fzf2 ctermfg=23 ctermbg=251
-"   highlight fzf3 ctermfg=237 ctermbg=251
-"   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-" endfunction
 
-" autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " previous buffer
 nnoremap <Leader><tab> :b# <CR>
@@ -107,7 +98,12 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
+nmap <silent> <Leader>1 :1wincmd W<CR>
+nmap <silent> <Leader>2 :2wincmd W<CR>
+nmap <silent> <Leader>3 :3wincmd W<CR>
+nmap <silent> <Leader>4 :4wincmd W<CR>
+nmap <silent> <Leader>5 :5wincmd W<CR>
+nmap <silent> <Leader>6 :6wincmd W<CR>
+
 let g:airline#extensions#tabline#enabled = 1
-
-
-
+let g:airline#extensions#tabline#win_nr_show = 1
