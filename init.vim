@@ -26,7 +26,17 @@ Plug 'sirver/ultisnips'
 Plug 'posva/vim-vue'
 Plug 'digitaltoad/vim-jade'
 Plug 'jceb/vim-orgmode'
+Plug 'vim-syntastic/syntastic'
 Plug 'mhinz/vim-startify'
+Plug 'eagletmt/neco-ghc'
+Plug 'tpope/vim-repeat'
+Plug 'svermeulen/vim-easyclip'
+Plug 'easymotion/vim-easymotion'
+Plug 'slashmili/alchemist.vim'
+Plug 'elixir-editors/vim-elixir'
+Plug 'thinca/vim-ref'
+Plug 'kbrw/elixir.nvim', { 'do': 'yes \| ./install.sh' }
+Plug 'zchee/deoplete-jedi'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
@@ -39,8 +49,8 @@ let g:deoplete#enable_at_startup=1
 let g:deoplete#auto_complete_delay = 200
 let g:nvim_typescript#type_info_on_hold=1
 let g:nvim_typescript#vue_support=1
-set updatetime=100
 set shortmess+=c
+set updatetime=100
 set completeopt-=preview
 set completeopt+=noinsert
 
@@ -95,7 +105,7 @@ nnoremap <Leader>fa :FZF -x ~<CR>
 nnoremap <Leader>fc :Ag <CR>
 nnoremap <Leader>b :History<CR>
 nnoremap <Leader>s :Snippets<CR>
-nnoremap <Leader><Leader> :Commands<CR>
+nnoremap <Leader>c :Commands<CR>
 
 nnoremap <silent><A-Up> :m .-2<CR>
 nnoremap <silent><A-Down> :m .+1<CR>
@@ -145,3 +155,16 @@ let g:prettier#config#semi = 'false'
 
 " single quotes over double quotes
 let g:prettier#config#single_quote = 'true'
+
+" easy clip
+let g:EasyClipUseSubstituteDefaults = 1
+let g:EasyClipUseCutDefaults = 0
+" cut is on <leader>d now
+nnoremap d "_d
+xnoremap d "_d
+nnoremap dd "_dd
+nnoremap D "_D
+nmap gd <Plug>MoveMotionPlug
+xmap gd <Plug>MoveMotionXPlug
+nmap gdd <Plug>MoveMotionLinePlug
+map gD <Plug>MoveMotionEndOfLinePlug
