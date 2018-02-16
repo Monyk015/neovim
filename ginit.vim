@@ -1,1 +1,2 @@
-GuiFont Consolas:h12
+GuiFont Consolas:h14
+" call GuiWindowFullScreen(1)
