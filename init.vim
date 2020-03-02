@@ -1,129 +1,178 @@
 call plug#begin('~/.vim/plugged')
-
-" Declare the list of plugins.
+Plug 'justinmk/vim-sneak'
 Plug 'joshdick/onedark.vim'
-Plug 'morhetz/gruvbox'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'sonph/onehalf'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
-Plug 'pangloss/vim-javascript'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'bling/vim-airline'
-Plug 'kassio/neoterm'
-Plug 'mhartington/nvim-typescript'
-" Plug 'neomake/neomake'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'shougo/echodoc'
-Plug 'sirver/ultisnips'
-Plug 'posva/vim-vue'
-Plug 'digitaltoad/vim-jade'
-Plug 'jceb/vim-orgmode'
-Plug 'mhinz/vim-startify'
-Plug 'eagletmt/neco-ghc'
+Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-easyclip'
-Plug 'easymotion/vim-easymotion'
-Plug 'elixir-editors/vim-elixir'
-Plug 'slashmili/alchemist.vim'
-Plug 'thinca/vim-ref'
-Plug 'zchee/deoplete-jedi'
-Plug 'lervag/vimtex'
-Plug 'Shougo/vimshell.vim'
-Plug 'tpope/vim-endwise'
-Plug 'ElmCast/elm-vim'
-Plug 'davidhalter/jedi-vim'
-" Plug 'w0rp/ale'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
-Plug 'trotzig/import-js'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'freitass/todo.txt-vim'
 Plug 'mbbill/undotree'
-" List ends here. Plugins become visible to Vim after this call.
+Plug 'machakann/vim-highlightedyank'
+Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
+Plug 'elixir-editors/vim-elixir'
+Plug 'pangloss/vim-javascript'
+Plug 'vim-airline/vim-airline'
+Plug 'mhinz/vim-startify'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tommcdo/vim-exchange'
+Plug 'ElmCast/elm-vim'
+Plug 'JamshedVesuna/vim-markdown-preview'
+" Initialize plugin system
 call plug#end()
 
-let g:deoplete#enable_at_startup=1
-let g:deoplete#auto_complete_delay = 200
-let g:nvim_typescript#type_info_on_hold=1
-" let g:nvim_typescript#vue_support=1
-set shortmess+=c
-set updatetime=100
-set completeopt-=preview
-set completeopt+=noinsert
-set noswapfile
+let mapleader="\<Space>"
+let maplocalleader = ","
 
-autocmd FileType typescript nnoremap <M-CR> :TSImport<CR>
-autocmd FileType typescript nnoremap <C-b> :TSDef<CR>
-autocmd FileType typescript nnoremap <C-S-b> :TSTypeDef<CR>
+let vim_markdown_preview_github=1
+
+nnoremap <Leader><tab> :b# <CR>
+
+inoremap jk <ESC>
+inoremap <ESC> <nop>
+inoremap <C-v> <ESC>pa
+inoremap <C-z> <ESC>ui
 
 
-autocmd FileType python nnoremap <C-b> :call jedi#goto()<CR>
+let g:NERDTreeIgnore = ['^node_modules$']
 
-let g:alchemist_tag_disable = 1
-let g:alchemist_tag_map = '<C-b>'
+set relativenumber
 
-
-" completion tab behaviour
-inoremap <expr> <tab> pumvisible() ? deoplete#close_popup() : "\<tab>"
-let g:UltiSnipsExpandTrigger=""
-" completion enter behaviour
-inoremap <silent> <cr> <C-r>=<SID>my_cr_function()<cr>
-function! s:my_cr_function() abort
-    return deoplete#mappings#smart_close_popup() . "\<CR>"
-endfunction
-" manual complete
-" inoremap <expr> <tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
-
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-let g:echodoc_enable_at_startup = 1
-
-set clipboard+=unnamedplus
-set noshowmode
-set cmdheight=2
-set nocompatible
-set hidden
-" set background =dark
-syntax on
-set termguicolors
+set smarttab
+set cindent
+set tabstop=2
+set shiftwidth=2
+" always uses spaces instead of tab characters
 set expandtab
-set softtabstop=4
-set shiftwidth=4
-set number relativenumber
+set clipboard+=unnamedplus
+
 colorscheme onedark
 
-" NERD Tree
-map <M-1> :NERDTreeToggle<CR>
+" coc config
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-eslint', 
+  \ 'coc-prettier', 
+  \ 'coc-json', 
+  \ 'coc-elixir'
+  \ ]
+" from readme
+" if hidden is not set, TextEdit might fail.
+set hidden " Some servers have issues with backup files, see #649 set nobackup set nowritebackup " Better display for messages set cmdheight=2 " You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
 
-let mapleader="\<Space>"
-let maplocalleader=","
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-nnoremap <Leader>fs :wa<CR>
-nnoremap <Leader>wd :q<CR>
-nnoremap <Leader>qq :qa!<CR>
+" always show signcolumns
+set signcolumn=yes
 
-nnoremap <Leader>wv :vsplit<CR>
-nnoremap <Leader>ws :ssplit<CR>
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" fzf bindings
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
-nnoremap <Leader>wf :Windows<CR>
-nnoremap <Leader>ff :Files<CR>
-nnoremap <Leader>fa :FZF -x ~<CR>
-nnoremap <Leader>fc :Ag <CR>
-nnoremap <Leader>b :History<CR>
-nnoremap <Leader>s :Snippets<CR>
-nnoremap <Leader>c :Commands<CR>
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gf <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <F2> <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>mf :<C-u>Format<cr>
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 nnoremap <silent><A-Up> :m .-2<CR>
 nnoremap <silent><A-Down> :m .+1<CR>
@@ -132,59 +181,38 @@ inoremap <silent><A-Up> <Esc>:m .-2<CR>gi
 vnoremap <silent><A-Down> :m '>+1<CR>gv=gv
 vnoremap <silent><A-Up> :m '<-2<CR>gv=gv
 
-
-" previous buffer
-nnoremap <Leader><tab> :b# <CR>
-
-" window switching
-nmap <silent> <A-l> :wincmd k<CR>
-nmap <silent> <A-j> :wincmd j<CR>
-nmap <silent> <A-h> :wincmd h<CR>
-nmap <silent> <A-l> :wincmd l<CR>
-" nmap <silent> <A-Up> :wincmd k<CR>
-" nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
-nmap <silent> <Leader>1 :1wincmd W<CR>
-nmap <silent> <Leader>2 :2wincmd W<CR>
-nmap <silent> <Leader>3 :3wincmd W<CR>
-nmap <silent> <Leader>4 :4wincmd W<CR>
-nmap <silent> <Leader>5 :5wincmd W<CR>
-nmap <silent> <Leader>6 :6wincmd W<CR>
+nnoremap <Leader>fs :wa<CR>
+nnoremap <Leader>wd :q<CR>
+nnoremap <Leader>qq :qa!<CR>
 
-nnoremap Z ^
-nnoremap X $
+nnoremap <Leader>wv :vsplit<CR>
+nnoremap <Leader>ws :ssplit<CR>
 
-" let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#win_nr_show = 1
-let g:airline_section_z = '%{strftime("%H:%M")}'
-let g:airline_section_c = airline#section#create(['%{getcwd()}', '/', 'file'])
+nnoremap <Leader>ot :NERDTreeToggle<CR>
 
-let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/Projects/' ]
-let g:startify_session_autoload = 1
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+nnoremap <Leader>wf :Windows<CR>
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader><Leader> :Files<CR>
+nnoremap <Leader>fa :FZF -x ~<CR>
+nnoremap <Leader>fc :Ag <CR>
+nnoremap <Leader>b :History<CR>
+nnoremap <Leader>c :Commands<CR>
+nnoremap <Leader>/ :BLines<CR>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
-noremap <silent><F11> :call GuiWindowFullScreen(1)<CR>
 
-let g:prettier#autoformat = 0
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
-
-nnoremap <Leader>jf :PrettierAsync<CR>
-
-" number of spaces per indentation level
-let g:prettier#config#tab_width = 2
-
-let g:prettier#config#semi = 'true'
-let g:prettier#config#arrow_parens = 'always'
-
-" single quotes over double quotes
-let g:prettier#config#single_quote = 'true'
-let g:prettier#config#bracket_spacing = 'true'
-
-" easy clip
-let g:EasyClipUseSubstituteDefaults = 1
+" let g:EasyClipUseSubstituteDefaults = 1
 let g:EasyClipUseCutDefaults = 0
-" cut is on <leader>d now
+
+" nmap <silent> gs <plug>SubstituteOverMotionMap 
+" map gss <plug>SubstituteLine
+" xmap gs <plug>XEasyClipPaste
+
 nnoremap d "_d
 xnoremap d "_d
 nnoremap dd "_dd
@@ -194,19 +222,21 @@ xmap gd <Plug>MoveMotionXPlug
 nmap gdd <Plug>MoveMotionLinePlug
 map gD <Plug>MoveMotionEndOfLinePlug
 
-tnoremap <C-a> <C-\><C-n>
+let g:highlightedyank_highlight_duration = 100
 
-" elm
-let g:elm_format_autosave = 1
+fu! FzfTagsCurrWord()
+  let currWord = expand('<cword>')
+  if len(currWord) > 0
+    execute ':Ag ' . currWord
+  else
+    execute ':Ag'
+  endif
+endfu
 
-autocmd BufNewFile,BufRead * set conceallevel=0
-autocmd BufWritePost,BufNewFile,BufRead *.elm set conceallevel=1
-autocmd BufWritePost,BufNewFile,BufRead *.elm set concealcursor=nvi
-autocmd BufWritePost,BufNewFile,BufRead *.elm syntax match spaces /  / conceal cchar= 
+nnoremap <Leader>* :call FzfTagsCurrWord()<CR>
 
-" Replace every 2 spaces with one
-" autocmd BufNewFile,BufRead *.elm syntax match spaces /  / conceal cchar=  
-" autocmd BufWritePre *.elm syntax match spaces /  / conceal cchar= 
-" autocmd BufNewFile,BufRead *.elm set concealcursor=nvi
-" autocmd BufWritePre *.elm set concealcursor=nvi
-" autocmd BufNewFile,BufRead *.elm set conceallevel=1
+let g:sneak#label = 1
+
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#semi = 'false'
+

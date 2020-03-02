@@ -1,0 +1,32 @@
+{
+  "suggest.noselect": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+  ],
+  "languageserver": {
+    "haskell": {
+      "command": "hie-wrapper",
+      "rootPatterns": [
+        "stack.yaml",
+        "cabal.config",
+        "package.yaml"
+      ],
+      "filetypes": [
+        "hs",
+        "lhs",
+        "haskell"
+      ],
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true
+        }
+      }
+    },
+    "elixirLS": {
+      "command":"/home/monyk/elixir-ls/rel/language_server.sh",
+      "filetypes": ["elixir", "eelixir"],
+      "settings": {
+        "elixirLS": {"dialyzerEnabled": false}      
+      }
+    }
+  }
+}
